@@ -34,4 +34,4 @@ $qr_code_image = (new Output\Png)->output($obj_qr_code, 400);
 
 <br><br>
 
-Código pix: <strong><?php $payload_qr_code ?></strong>
+Código pix: <strong><?php echo $payload_qr_code ?></strong>

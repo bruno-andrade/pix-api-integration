@@ -25,53 +25,12 @@ class Payload {
   const ID_ADDITIONAL_DATA_FIELD_TEMPLATE_TXID = '05';
   const ID_CRC16 = '63';
 
-  /**
-   *  Chave Pix
-   *  @var string
-   */
-
   private $pix_key;
-
-  
-  /**
-   *  Descrição do pagamento
-   *  @var string
-   */
-
   private $description;
-
-
-  /**
-   *  Nome do titular da conta
-   *  @var string
-   */
-
   private $merchant_name;
-
-
-  /**
-   *  Cidade do titular da conta
-   *  @var string
-   */
-
   private $merchant_city;
-
-
-  /**
-   *  ID da transação PIX
-   *  @var string
-   */
-
   private $txid;
-
-
-  /**
-   *  Valor da transação
-   *  @var string
-   */
-
   private $amount;
-
 
   /**
    * Método responsável por definir o valor do $pix_key
@@ -191,18 +150,18 @@ class Payload {
   }
 
    /**
-   * Método responsável por calcular o valor da hash de validação do código pix
+   * Método definido pelo Bacen, responsável por calcular o valor da hash de validação do código pix
    * @return string
    */
   private function get_CRC16($payload) {
-    //ADICIONA DADOS GERAIS NO PAYLOAD
+    //Adiciona dados gerais no payload
     $payload .= self::ID_CRC16.'04';
 
-    //DADOS DEFINIDOS PELO BACEN
+    //Dados definidos pelo bacen
     $polinomio = 0x1021;
     $resultado = 0xFFFF;
 
-    //CHECKSUM
+    //Checksum
     if (($length = strlen($payload)) > 0) {
         for ($offset = 0; $offset < $length; $offset++) {
             $resultado ^= (ord($payload[$offset]) << 8);
@@ -213,9 +172,8 @@ class Payload {
         }
     }
 
-    //RETORNA CÓDIGO CRC16 DE 4 CARACTERES
+    //Retorna código CRC16 de 4 caracteres
     return self::ID_CRC16.'04'.strtoupper(dechex($resultado));
   }
-
 
 }

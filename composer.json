@@ -1,5 +1,5 @@
 {
-  "name":"bruno/pix",
+  "name":"b/pix",
   "autoload":{
     "psr-4":{
       "App\\":"app/"
