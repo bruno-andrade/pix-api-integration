@@ -1,5 +1,5 @@
 {
-  "name":"bruno-pix/pix",
+  "name":"b_pix-payment/pix",
   "autoload":{
     "psr-4":{
       "App\\":"app/"
