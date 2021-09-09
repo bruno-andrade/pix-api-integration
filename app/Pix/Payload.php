@@ -11,10 +11,12 @@ class Payload {
   * @var string
   */
   const ID_PAYLOAD_FORMAT_INDICATOR = '00';
+  const ID_POINT_OF_INITIATION_METHOD = '01';
   const ID_MERCHANT_ACCOUNT_INFORMATION = '26';
   const ID_MERCHANT_ACCOUNT_INFORMATION_GUI = '00';
   const ID_MERCHANT_ACCOUNT_INFORMATION_KEY = '01';
   const ID_MERCHANT_ACCOUNT_INFORMATION_DESCRIPTION = '02';
+  const ID_MERCHANT_ACCOUNT_INFORMATION_URL = '25';
   const ID_MERCHANT_CATEGORY_CODE = '52';
   const ID_TRANSACTION_CURRENCY = '53';
   const ID_TRANSACTION_AMOUNT = '54';
@@ -31,6 +33,8 @@ class Payload {
   private $merchant_city;
   private $txid;
   private $amount;
+  private $unique_payment = false;
+  private $url;
 
   /**
    * Método responsável por definir o valor do $pix_key
@@ -91,6 +95,24 @@ class Payload {
   }
 
   /**
+   * Método responsável por definir o valor do $unique_payment
+   * @param boolean $unique_payment
+   */
+  public function set_unique_payment($unique_payment){
+    $this->unique_payment = $unique_payment;
+    return $this;
+  }
+
+  /**
+   * Método responsável por definir o valor do $url
+   * @param string $url
+   */
+  public function set_url($url){
+    $this->url = $url;
+    return $this;
+  }
+
+  /**
    * Responsável por retornar o valor completo de um objeto
    * @param string $id
    * @param string $value
@@ -110,12 +132,16 @@ class Payload {
     $gui = $this->get_value(self::ID_MERCHANT_ACCOUNT_INFORMATION_GUI, 'br.gov.bcb.pix');
 
     //Chave pix
-    $key = $this->get_value(self::ID_MERCHANT_ACCOUNT_INFORMATION_KEY, $this->pix_key);
+    $key = strlen($key) ? $this->get_value(self::ID_MERCHANT_ACCOUNT_INFORMATION_KEY, $this->pix_key) : '';
 
     //Descrição do pagamento
     $description = strlen($this->description) ? $this->get_value(self::ID_MERCHANT_ACCOUNT_INFORMATION_DESCRIPTION, $this->description) : '';
 
-    return $this->get_value(self::ID_MERCHANT_ACCOUNT_INFORMATION, $gui.$key.$description);
+    //Url do QrCode Dinâmico
+    $url = strlen($this->url) ? $this->get_value(self::ID_MERCHANT_ACCOUNT_INFORMATION_URL, preg_replace('/^htpps?\:\/\//','',$this->url)) : '';
+
+    // Retorno completo
+    return $this->get_value(self::ID_MERCHANT_ACCOUNT_INFORMATION, $gui.$key.$description.$url);
   }
 
   /**
@@ -131,12 +157,21 @@ class Payload {
   }
 
   /**
+   * Método responsável por retornar o valor do ID_POINT_INITIATION_METHOD
+   * @return string
+   */
+  private function get_unique_payment(){
+    return $this->unique_payment ? $this->get_value(self::ID_POINT_OF_INITIATION_METHOD, '12') : '';
+  }
+
+  /**
    * Método responsável por gerar o código completo do payload Pix
    * @return string
    */
   public function get_payload(){
     //Cria o payload
     $payload = $this->get_value(self::ID_PAYLOAD_FORMAT_INDICATOR, '01').
+               $this->get_unique_payment().
                $this->get_merchant_account_info().
                $this->get_value(self::ID_MERCHANT_CATEGORY_CODE, '0000').
                $this->get_value(self::ID_TRANSACTION_CURRENCY, '986').
