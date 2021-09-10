@@ -2,8 +2,6 @@
 
 namespace App\Pix;
 
-
-
 class Payload {
 
   /**

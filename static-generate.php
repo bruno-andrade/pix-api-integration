@@ -12,8 +12,7 @@ $obj_payload = (new Payload)->set_pix_key('chavepix123')
                             ->set_merchant_name('Bruno Andrade')
                             ->set_merchant_city('Maceió')
                             ->set_amount(100.00)
-                            ->set_txid('BRUNO1234');
-
+                            ->set_txid('XA212AS212BS212BS212Z29759');
 
 
 //Código de pagamento PIX
