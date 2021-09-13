@@ -3,22 +3,30 @@
 require __DIR__.'/vendor/autoload.php';
 
 use \App\Pix\Api;
-use \App\Pix\Payload;
-use Mpdf\QrCode\QrCode;
-use Mpdf\QrCode\Output;
+use \App\Pix\Data;
 
-$obj_api_pix = new Api('.hm.bb.com.br/', 
-                       'eyJpZCI6ImY4Mzk5MmUtNyIsImNvZGlnb1B1YmxpY2Fkb3IiOjAsImNvZGlnb1NvZnR3YXJlIjoyMTkyOCwic2VxdWVuY2lhbEluc3RhbGFjYW8iOjF9',
-                       'eyJpZCI6IjJhIiwiY29kaWdvUHVibGljYWRvciI6MCwiY29kaWdvU29mdHdhcmUiOjIxOTI4LCJzZXF1ZW5jaWFsSW5zdGFsYWNhbyI6MSwic2VxdWVuY2lhbENyZWRlbmNpYWwiOjEsImFtYmllbnRlIjoiaG9tb2xvZ2FjYW8iLCJpYXQiOjE2MzA5NTYxNjg4Mzl9');
+$obj_data    = (new Data())->get_data();
+$obj_api_pix = new Api($obj_data['route'], $obj_data['client_id'], $obj_data['client_secret']);
 
-$response = $obj_api_pix->consult_cob('B1R2F3S5A9B1R2F3S5A9153459');
+echo "<pre>";
+if ($obj_data) {
+  echo "<br><h3>DADOS</h3>";
+  print_r ($obj_data);
+}else{
+  echo "RESPONSE VAZIO\n\n";
+}
+echo "</pre>";
+
+
+$response = $obj_api_pix->consult_cob($obj_data['txid']);
 
 
 echo "<pre>";
 if ($response) {
-  echo "<h3>RESPONSE:</h3><br>";
+  echo "<br><h3>CONSULTA GERADA</h3>";
   print_r ($response);
 }else{
   echo "RESPONSE VAZIO\n\n";
 }
-echo "</pre>"; exit;
+echo "</pre>";
+

@@ -117,7 +117,7 @@ class Payload {
    * @return string $id.$size.$value  
    */
   private function get_value($id, $value){
-    $size = str_pad(strlen($value), 2, '0', STR_PAD_LEFT);
+    $size = str_pad(mb_strlen($value), 2, '0', STR_PAD_LEFT);
     return $id.$size.$value;
   }
 
@@ -173,7 +173,7 @@ class Payload {
                $this->get_merchant_account_info().
                $this->get_value(self::ID_MERCHANT_CATEGORY_CODE, '0000').
                $this->get_value(self::ID_TRANSACTION_CURRENCY, '986').
-               $this->get_value(self::ID_TRANSACTION_AMOUNT, $this->amount).
+               //$this->get_value(self::ID_TRANSACTION_AMOUNT, $this->amount).
                $this->get_value(self::ID_COUNTRY_CODE, 'BR').
                $this->get_value(self::ID_MERCHANT_NAME, $this->merchant_name).
                $this->get_value(self::ID_MERCHANT_CITY, $this->merchant_city).

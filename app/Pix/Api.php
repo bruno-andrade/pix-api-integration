@@ -150,7 +150,7 @@ class Api{
     curl_close($curl);
 
     if ($response) {
-      return $response;
+      return json_decode($response, true);
     }else{
       return $err;
     }
