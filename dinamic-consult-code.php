@@ -18,7 +18,7 @@ if ($obj_data) {
 echo "</pre>";
 
 
-$response = $obj_api_pix->consult_cob($obj_data['txid']);
+$response = $obj_api_pix->consult_cob('MODULOPIX2553613F402560C61');
 
 
 echo "<pre>";

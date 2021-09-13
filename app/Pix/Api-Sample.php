@@ -54,9 +54,9 @@ class Api{
     
 
     //Headers
-    $headers = ['Authorization: Basic ZXlKcFpDSTZJbVk0TXprNU1tVXROeUlzSW1OdlpHbG5iMUIxWW14cFkyRmtiM0lpT2pBc0ltTnZaR2xuYjFOdlpuUjNZWEpsSWpveU1Ua3lPQ3dpYzJWeGRXVnVZMmxoYkVsdWMzUmhiR0ZqWVc4aU9qRjk6ZXlKcFpDSTZJakpoSWl3aVkyOWthV2R2VUhWaWJHbGpZV1J2Y2lJNk1Dd2lZMjlrYVdkdlUyOW1kSGRoY21VaU9qSXhPVEk0TENKelpYRjFaVzVqYVdGc1NXNXpkR0ZzWVdOaGJ5STZNU3dpYzJWeGRXVnVZMmxoYkVOeVpXUmxibU5wWVd3aU9qRXNJbUZ0WW1sbGJuUmxJam9pYUc5dGIyeHZaMkZqWVc4aUxDSnBZWFFpT2pFMk16QTVOVFl4TmpnNE16bDk=',
+    $headers = ['Authorization: Basic {{basic-key}}',
     'Content-Type: application/x-www-form-urlencoded',
-    'Cookie: JSESSIONID=jR3PwiI0235yYToQ-STY74AuSCJC5aTPHFLOd8Uj-hTtL_Yt1Exv!557095713'];
+    'Cookie: {{cookie}}'];
 
     //Corpo da Requisição
     $request = 'grant_type=client_credentials&scope=cob.read%20cob.write%20pix.read%20pix.write';    

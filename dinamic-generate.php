@@ -29,7 +29,7 @@ $obj_api_pix = new Api($obj_data['route'], $obj_data['client_id'], $obj_data['cl
 
 $request = [
   'calendario' => [
-    'expiracao' => 3600
+    'expiracao' => 186400
   ],
   'devedor' => [
     'cpf' => "05399512424",
