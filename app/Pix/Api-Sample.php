@@ -17,7 +17,7 @@ class Api{
    * @param string $client_secret
    * @param string $certificate
    */
-  public function __construct($base_url, $client_id, $client_secret, $gw_dev_app_key = 'd27b677901ffabb0136fe17dd0050c56b941a5bc'){
+  public function __construct($base_url, $client_id, $client_secret, $gw_dev_app_key = '{{dev_key}}'){
     $this->base_url       = $base_url;
     $this->client_id      = $client_id;
     $this->client_secret  = $client_secret;
@@ -54,9 +54,9 @@ class Api{
     
 
     //Headers
-    $headers = ['Authorization: Basic {{basic-key}}',
+    $headers = ['Authorization: Basic {{basic_key}}',
     'Content-Type: application/x-www-form-urlencoded',
-    'Cookie: {{cookie}}'];
+    'Cookie: JSESSIONID=jR3PwiI0235yYToQ-STY74AuSCJC5aTPHFLOd8Uj-hTtL_Yt1Exv!557095713'];
 
     //Corpo da Requisição
     $request = 'grant_type=client_credentials&scope=cob.read%20cob.write%20pix.read%20pix.write';    
@@ -82,18 +82,11 @@ class Api{
     $response = curl_exec($curl);
     curl_close($curl);
 
-    $response_array = json_decode($response, true);
+    $response_array = json_decode($response, true);    
 
-    echo "<pre>";
-    if ($response_array) {
-      echo "<h3>TOKEN GERADO</h3>";
-      print_r($response_array);
-    }else{
-      echo "PROBLEMAS AO GERAR TOKEN";
-      print_r($response_array);
-    }
+    echo "<pre>";    
+    print_r($response_array);
     echo "</pre>";
-    
 
     //Retorna o Access Token
     return $response_array['access_token']; 
